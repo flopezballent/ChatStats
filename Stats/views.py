@@ -73,6 +73,7 @@ def results(request):
     df = cleanTxt(file, os_chat)
     for file in list_files:
         os.remove(file)
+        Chat.objects.filter(file = file).delete()
 
     df['date'] = pd.to_datetime(df['date'], dayfirst=True) 
     df['Day Hour'] = df['Day Hour'].astype(int)  
