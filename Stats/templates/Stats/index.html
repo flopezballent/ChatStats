@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WA Stats</title>
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen+Mono&family=Oxygen:wght@700&display=swap" rel="stylesheet">
+    <!--css-->
+    <link href="{% static 'Stats/style.css' %}" rel="stylesheet">
+    <!--Dropzone js and css-->
+    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+</head>
+<body>
+    <div id="head">
+        <img src="{% static 'Stats/svg/wa.svg' %}" alt="" width="100" height="70">
+        <h1>WhatsApp Stats</h1>
+        <h3>Upload the chat you want to analize in .txt format</h3>
+    </div>
+    <div id="form">
+        <script>
+            Dropzone.options.myDropzone = {
+                maxFiles: 1,
+                paramName: "chat",
+                acceptedFiles: ".txt",
+                addRemoveLinks: true,
+            } 
+        </script>
+        <form action="/" method="POST" class="dropzone dz" id="my-dropzone">
+            {% csrf_token %}
+        </form>
+    </div>
+    <button onclick="location.href = '/results'" class="send-button" id="send">View results</button>
+    <p class="help-text">
+        Don't know how to export a WA chat? <a href="https://faq.whatsapp.com/android/chats/how-to-save-your-chat-history/?lang=kk">click here</a>
+    </p>
+</body>
+</html>

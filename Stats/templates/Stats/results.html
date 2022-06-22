@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stats</title>
+    <!--google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen+Mono&family=Oxygen:wght@700&display=swap" rel="stylesheet">
+    <!--css-->
+    <link href="{% static 'Stats/style.css' %}" rel="stylesheet">
+</head>
+<body style="background-color: rgb(59, 102, 102);">
+    <h2>This are the stats for <span>"{{group_name}}"</span></h2>
+    <div id="ranking_block" class="block">
+        <h4 class="block-title">Who sent more messages</h4>
+        <div class="rank-first" id="ranking_name_first">
+            <p class="rank-name">{{first.0}}</p>
+            <p class="rank-value">{{first.1}}</p>
+        </div>
+        {% for name in rank %}
+        <div id="ranking_names" class="rank">
+            <p class="rank-name">{{name.0}}</p>
+            <p class="rank-value">{{name.1}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="ranking_block" class="block">
+        <h4 class="block-title">Who sent more messages per year</h4>
+        <img src="{% static 'Stats/graphics/rank-per-year.png' %}" alt="">
+    </div>
+    <div id="ranking_block" class="block">
+        <h4 class="block-title">Messages histogram</h4>
+        <img src="{% static 'Stats/graphics/histogram.png' %}" alt="">
+    </div>
+    <div id="chrono_block" class="block-chrono">
+        <h4 class="block-title">Chronology</h4>
+        <img src="{% static 'Stats/graphics/chronology.png' %}" alt="">
+    </div>
+    <div id="week_block" class="block">
+        <h4 class="block-title">Count of messages by day</h4>
+        <img src="{% static 'Stats/graphics/week.png' %}" alt="">
+    </div>
+    <div id="year_block" class="block">
+        <h4 class="block-title">Count of messages by month</h4>
+        <img src="{% static 'Stats/graphics/year.png' %}" alt="">
+    </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+body {
+    background-color: rgb(59, 102, 102);
+    text-align: center;
+}
+
+h1{
+    font-family: 'Oxygen', sans-serif;
+    color: white;
+}
+
+h2 {
+    font-family: 'Oxygen Mono', monospace;
+    color: white;
+}
+
+h3 {
+    font-family: 'Oxygen Mono', monospace;
+    color: white;
+    
+}
+
+h4 {
+    font-family: 'Oxygen', sans-serif;
+    color: black;
+    text-align: left;
+    
+}
+
+span {
+    font-family: 'Oxygen', sans-serif;
+    color: black;
+    font-size: 3rem;
+}
+
+a {
+    color:black;
+}
+
+a:hover {
+    color: rgba(0, 0, 0, 0.658);
+    text-decoration: none;
+}
+
+img {
+    text-align: center;
+}
+
+#head {
+    margin-top: 80px;
+    text-align: center;
+}
+
+#form {
+    font-family: 'Oxygen Mono', monospace;
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.dz {
+    border: dashed !important;
+    border-color:darkgray !important;
+    background-color: transparent !important;
+    color: darkgray !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+}
+
+.dz:hover {
+    background-color:rgba(105, 105, 105, 0.26) !important;
+}
+
+.send-button {
+    font-family: 'Oxygen Mono', monospace;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: transparent; 
+    border: 2px solid black;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.help-text {
+    margin-top: 40 px;
+    font-family: 'Oxygen Mono', monospace;
+}
+
+.block {
+    background-color: rgb(231, 220, 220);
+    padding: 1.5em;
+    max-width: 800px;
+    box-shadow: 20px 20px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.block-chrono {
+    background-color: rgb(231, 220, 220);
+    padding: 1.5em;
+    padding-bottom: 2em;
+    max-width: 1000px;
+    box-shadow: 20px 20px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.block-title {
+    font-family: 'Oxygen', sans-serif;
+    color: black;
+    text-align: left;
+    font-size: 1.3rem;
+}
+
+.block-content {
+    font-family: 'Oxygen Mono', monospace;
+    color: black;
+    text-align: left;
+}
+
+.rank{
+    max-width: 500px;
+    border: 2px solid black;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin: 0 auto;
+    font-family: 'Oxygen Mono', monospace;
+    color: black;
+    margin-bottom: 10px;
+    display:flex; 
+    flex-flow:row wrap;
+}
+
+.rank-first{
+    max-width: 550px;
+    border: 2px solid black;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin: 0 auto;
+    font-family: 'Oxygen Mono', monospace;
+    color: black;
+    margin-bottom: 15px;
+    box-shadow: 7px 7px;
+    display:flex; 
+    flex-flow:row wrap;
+}
+
+.rank-first:hover {
+    background-color: rgb(161, 156, 156);
+}
+
+.rank:hover {
+    background-color: rgb(161, 156, 156);
+}
+
+.rank-name {
+    width: 50%;
+    text-align: left;
+}
+
+.rank-value {
+    width: 50%;
+    text-align: right;
+    font-weight: bold;
+}
+
+
