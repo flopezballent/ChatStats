@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="head">
-        <img src="{% static 'Stats/svg/wa.svg' %}" alt="" width="100" height="70">
+        <img src="{% static 'Stats/svg/wa.svg' %}" alt="" width="100" height="90">
         <h1>WhatsApp Stats</h1>
         <h3>Upload the chat you want to analize in .txt format</h3>
     </div>
@@ -28,6 +28,8 @@
                 maxFiles: 1,
                 paramName: "chat",
                 acceptedFiles: ".txt",
+                preview_image: false,
+                inputLabelWithFiles: false,
                 addRemoveLinks: true,
             } 
         </script>

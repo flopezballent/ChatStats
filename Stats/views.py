@@ -92,17 +92,18 @@ def results(request):
     fig = plt.figure(figsize=(8,5))
     ax = sns.countplot(y='name', data=df, order = df['name'].value_counts().index, hue=df['date'].dt.year, palette="crest")
     ax.set(ylabel=None)
-    plt.savefig('Stats/static/Stats/graphics/rank-per-year.png', transparent=True)
+    plt.savefig('Stats/static/Stats/graphics/rank-per-year.png', transparent=True, bbox_inches='tight')
 
     #Output --> Chronology
     per = df.date.dt.to_period("M")
     df_crono = df.groupby(per).size().reset_index(name='counts')
     df_crono['date'] = df_crono['date'].astype(str)
-    fig = plt.figure(figsize=(10, 5))
+    fig = plt.figure(figsize=(12, 5))
     ax = sns.lineplot(x='date', y='counts', data=df_crono)
     ax.set(ylabel=None)
-    plt.xticks(rotation=50)
-    plt.savefig('Stats/static/Stats/graphics/chronology.png', transparent=True)
+    plt.xticks(rotation=90)
+    plt.grid()
+    plt.savefig('Stats/static/Stats/graphics/chronology.png', transparent=True, bbox_inches='tight')
 
     #Output --> Histogram
     fig = plt.figure(figsize=(8, 4))
@@ -114,13 +115,13 @@ def results(request):
     fig = plt.figure(figsize=(8, 4))
     ax = sns.countplot(y='day_week', data=df, order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], palette="crest")
     ax.set(ylabel=None)
-    plt.savefig('Stats/static/Stats/graphics/week.png', transparent=True)
+    plt.savefig('Stats/static/Stats/graphics/week.png', transparent=True, bbox_inches='tight')
 
     #Output --> Messages per Year
     fig = plt.figure(figsize=(8, 4))
     ax = sns.countplot(y='month', data=df, order = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'], palette="crest")
     ax.set(ylabel=None)
-    plt.savefig('Stats/static/Stats/graphics/year.png', transparent=True)
+    plt.savefig('Stats/static/Stats/graphics/year.png', transparent=True, bbox_inches='tight')
 
     context = {
         'total_msj': total_msj,

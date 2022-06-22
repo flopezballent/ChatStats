@@ -15,6 +15,7 @@ h2 {
 
 h3 {
     font-family: 'Oxygen Mono', monospace;
+    font-weight: 500;
     color: white;
     
 }
@@ -46,7 +47,7 @@ img {
 }
 
 #head {
-    margin-top: 80px;
+    margin-top: 70px;
     text-align: center;
 }
 
@@ -62,12 +63,16 @@ img {
     border-color:darkgray !important;
     background-color: transparent !important;
     color: darkgray !important;
-    font-size: 20px !important;
+    font-size: 18px !important;
     font-weight: 500 !important;
 }
 
 .dz:hover {
     background-color:rgba(105, 105, 105, 0.26) !important;
+}
+
+.dropzone .dz-preview .dz-details > .dz-size {
+    font-size: 5px;
 }
 
 .send-button {
@@ -98,7 +103,7 @@ img {
 .block {
     background-color: rgb(231, 220, 220);
     padding: 1.5em;
-    max-width: 800px;
+    max-width: 900px;
     box-shadow: 20px 20px;
     margin: 0 auto;
     margin-top: 50px;
@@ -124,7 +129,7 @@ img {
 .block-content {
     font-family: 'Oxygen Mono', monospace;
     color: black;
-    text-align: left;
+    text-align: right;
 }
 
 .rank{
