@@ -14,7 +14,6 @@
     <link href="{% static 'Stats/style.css' %}" rel="stylesheet">
 </head>
 <body style="background-color: rgb(59, 102, 102);">
-    <!--<h2>This are the stats for <span>"{{group_name}}"</span></h2>-->
     <div id="ranking_block" class="block">
         <h4 class="block-title">Who sent more messages</h4>
         <div class="rank-first" id="ranking_name_first">
@@ -30,23 +29,23 @@
     </div>
     <div id="chrono_block" class="block-chrono">
         <h4 class="block-title">Chronology</h4>
-        <img src="{% static 'Stats/graphics/chronology.png' %}" alt="">
+        <img src="{{ MEDIA_URL }}graphs/chronology.png" alt="">
     </div>
     <div id="ranking_block" class="block">
         <h4 class="block-title">Who sent more messages per year</h4>
-        <img src="{% static 'Stats/graphics/rank-per-year.png' %}" alt="">
+        <img src="{{ MEDIA_URL }}graphs/rank-per-year.png" alt="">
     </div>
     <div id="ranking_block" class="block">
         <h4 class="block-title">Messages histogram in a day</h4>
-        <img src="{% static 'Stats/graphics/histogram.png' %}" alt="">
+        <img src="{{ MEDIA_URL }}graphs/histogram.png" alt="">
     </div>
     <div id="week_block" class="block">
         <h4 class="block-title">Count of messages by day</h4>
-        <img src="{% static 'Stats/graphics/week.png' %}" alt="">
+        <img src="{{ MEDIA_URL }}graphs/week.png" alt="">
     </div>
     <div id="year_block" class="block">
         <h4 class="block-title">Count of messages by month</h4>
-        <img src="{% static 'Stats/graphics/year.png' %}" alt="">
+        <img src="{{ MEDIA_URL }}graphs/year.png" alt="">
     </div>
 </body>
 </html>

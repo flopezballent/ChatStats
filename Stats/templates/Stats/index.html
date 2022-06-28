@@ -12,9 +12,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Oxygen+Mono&family=Oxygen:wght@700&display=swap" rel="stylesheet">
     <!--css-->
     <link href="{% static 'Stats/style.css' %}" rel="stylesheet">
-    <!--Dropzone js and css-->
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
 </head>
 <body>
     <div id="head">
@@ -23,21 +20,17 @@
         <h3>Upload the chat you want to analize in .txt format</h3>
     </div>
     <div id="form">
-        <script>
-            Dropzone.options.myDropzone = {
-                maxFiles: 1,
-                paramName: "chat",
-                acceptedFiles: ".txt",
-                preview_image: false,
-                inputLabelWithFiles: false,
-                addRemoveLinks: true,
-            } 
-        </script>
-        <form action="/" method="POST" class="dropzone dz" id="my-dropzone">
+        <form action="" method="POST" enctype='multipart/form-data'>
             {% csrf_token %}
+            <div class="file">
+                {{form.as_p}}
+            </div>
+            <input type="submit" value="View results" class="send-button">
         </form>
     </div>
-    <button onclick="location.href = '/results'" class="send-button" id="send">View results</button>
+    <!--
+        <button onclick="location.href = '/results'" class="send-button" id="send">View results</button>
+    -->
     <p class="help-text">
         Don't know how to export a WA chat? <a href="https://faq.whatsapp.com/android/chats/how-to-save-your-chat-history/?lang=kk">click here</a>
     </p>

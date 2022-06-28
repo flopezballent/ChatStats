@@ -46,9 +46,14 @@ img {
     text-align: center;
 }
 
+input[type='file']:hover {
+    cursor: pointer;
+}
+
 #head {
     margin-top: 70px;
     text-align: center;
+    margin-bottom: 40px;
 }
 
 #form {
@@ -56,23 +61,6 @@ img {
     text-align: center;
     max-width: 600px;
     margin: 0 auto;
-}
-
-.dz {
-    border: dashed !important;
-    border-color:darkgray !important;
-    background-color: transparent !important;
-    color: darkgray !important;
-    font-size: 18px !important;
-    font-weight: 500 !important;
-}
-
-.dz:hover {
-    background-color:rgba(105, 105, 105, 0.26) !important;
-}
-
-.dropzone .dz-preview .dz-details > .dz-size {
-    font-size: 5px;
 }
 
 .send-button {
@@ -93,6 +81,11 @@ img {
 .send-button:hover {
     background-color: black;
     color: white;
+}
+
+.file {
+    border: 4px rgba(128, 128, 128, 0.616);
+    border-style: dashed;
 }
 
 .help-text {
