@@ -10,9 +10,12 @@ from .forms import ChatForm
 
 def checkOs(file):
     for line in file:
+        print(line)
         if line[0] == '[':
+            print('iphone')
             return 'iphone'
         else:
+            print('android')
             return 'android'
 
 def cleanTxt(file, os):
@@ -129,7 +132,8 @@ def results(request):
     path = Chat.objects.last().file.path
     with open(path, 'r',encoding='utf-8') as f:
         file = f.name
-    os_chat = checkOs(file)
+        txt = f
+        os_chat = checkOs(txt)
     df = cleanTxt(file, os_chat)
     os.remove(path)
     Chat.objects.filter(file = Chat.objects.last().file).delete()
