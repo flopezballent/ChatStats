@@ -83,6 +83,11 @@ input[type='file']:hover {
     color: white;
 }
 
+.responsive {
+    width: 100%;
+    height: auto;
+  }
+
 .file {
     border: 4px rgba(128, 128, 128, 0.616);
     border-style: dashed;

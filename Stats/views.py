@@ -166,7 +166,10 @@ def results(request):
     with open(path, 'r',encoding='utf-8') as f:
         file = f.name
         txt = f
-        os_chat = checkOs(txt)
+        try:
+            os_chat = checkOs(txt)
+        except:
+            return HttpResponse('I can only read .txt files :(')
 
     df = cleanTxt(file, os_chat)
     df.to_csv('diega.csv', index=False)
