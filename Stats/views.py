@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from.models import Chat
 import pandas as pd
 import seaborn as sns
@@ -21,6 +21,7 @@ def checkOs(file):
 def cleanTxt(file, os):
     if (os == 'android'):
         df = pd.read_csv(file, sep='/n', index_col = False, encoding='utf-8', encoding_errors='ignore', engine='python')
+        df.to_csv('diega_pre', index=False)
         df = df.iloc[:, 0].str.split(':', expand=True)
         df = df.iloc[:, [0, 1]]
         df_date_hour = df[0].str.split(' ', expand=True).iloc[:,[0,1]]
@@ -29,11 +30,24 @@ def cleanTxt(file, os):
         hour = list(df_date_hour[1])
         df = pd.DataFrame({
             'date': date,
-            'Day Hour': hour,
+            'Day_Hour': hour,
             'name': name
         })
         df = df.dropna()
-        targets = ['eliminó', 'añadió', 'admin.', 'cambió', 'Eliminaste', 'Añadiste', 'Cambiaste', 'Saliste', 'extremo', 'creó', 'salió', 'Creaste']
+        targets = ['eliminó', 
+                    'añadió', 
+                    'admin.', 
+                    'cambió', 
+                    'Eliminaste', 
+                    'Añadiste', 
+                    'Cambiaste', 
+                    'Saliste', 
+                    'extremo', 
+                    'creó', 
+                    'salió', 
+                    'Creaste', 
+                    'videollamada', 
+                    'llamada']
         for name in df.name:
             for target in targets:                                    
                 if target in name:
@@ -41,6 +55,7 @@ def cleanTxt(file, os):
         return df
     if (os == 'iphone'):
         df = pd.read_csv(file, sep='/n', index_col = False, encoding_errors='ignore', engine='python')
+        df.to_csv('diega_pre', index=False)
         df = df.iloc[:, 0].str.split(':', expand=True)
         df_name = df.iloc[:, 2].str.split(']', expand=True).iloc[:,1]
         df_date_hour = df.iloc[:, 0]
@@ -49,11 +64,24 @@ def cleanTxt(file, os):
         df_hour = df_date_hour[1]
         df = pd.DataFrame({
             'date': list(df_date),
-            'Day Hour': list(df_hour),
+            'Day_Hour': list(df_hour),
             'name': list(df_name)
         })
         df = df.dropna()
-        targets = ['eliminó', 'añadió', 'admin.', 'cambió', 'Eliminaste', 'Añadiste', 'Cambiaste', 'Saliste', 'extremo', 'creó', 'salió']
+        targets = ['eliminó', 
+                    'añadió', 
+                    'admin.', 
+                    'cambió', 
+                    'Eliminaste', 
+                    'Añadiste', 
+                    'Cambiaste', 
+                    'Saliste', 
+                    'extremo', 
+                    'creó', 
+                    'salió', 
+                    'Creaste', 
+                    'videollamada', 
+                    'llamada']
         for name in df.name:
             for target in targets:                                    
                 if target in name:
@@ -61,8 +89,13 @@ def cleanTxt(file, os):
         return df 
 
 def graphs(df):
+    for hour in df.Day_Hour:
+        try:
+            int(hour)
+        except:
+            df = df.drop(df[df.Day_Hour == hour].index)
     df['date'] = pd.to_datetime(df['date'], dayfirst=True) 
-    df['Day Hour'] = df['Day Hour'].astype(int)  
+    df['Day_Hour'] = df['Day_Hour'].astype(int)  
     df['day_week'] = df['date'].dt.day_name() 
     df['month'] = df['date'].dt.month_name()
         
@@ -94,7 +127,7 @@ def graphs(df):
 
     #Output --> Histogram
     fig = plt.figure(figsize=(8, 4))
-    ax = sns.histplot(df, x=df['Day Hour'], palette="crest", bins=24)
+    ax = sns.histplot(df, x=df['Day_Hour'], palette="crest", bins=24)
     ax.set(ylabel=None, xticks=[*range(0,24)], xticklabels=[*range(0,24)])
     plt.savefig('media/graphs/histogram.png', transparent=True)
 
@@ -134,7 +167,9 @@ def results(request):
         file = f.name
         txt = f
         os_chat = checkOs(txt)
+
     df = cleanTxt(file, os_chat)
+    df.to_csv('diega.csv', index=False)
     os.remove(path)
     Chat.objects.filter(file = Chat.objects.last().file).delete()
     results = graphs(df)
