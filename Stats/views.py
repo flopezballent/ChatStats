@@ -8,80 +8,69 @@ from .forms import ChatForm
 
 # Create your views here.
 
+targets = ['eliminó', 
+            'añadió', 
+            'admin.', 
+            'cambió', 
+            'Eliminaste', 
+            'Añadiste', 
+            'Cambiaste', 
+            'Saliste', 
+            'extremo', 
+            'creó', 
+            'salió', 
+            'Creaste', 
+            'videollamada', 
+            'llamada']
+
 def checkOs(file):
     for line in file:
-        print(line)
         if line[0] == '[':
-            print('iphone')
             return 'iphone'
         else:
-            print('android')
             return 'android'
 
 def cleanTxt(file, os):
     if (os == 'android'):
         df = pd.read_csv(file, sep='/n', index_col = False, encoding='utf-8', encoding_errors='ignore', engine='python')
-        df.to_csv('diega_pre', index=False)
         df = df.iloc[:, 0].str.split(':', expand=True)
+        df_msg = df.iloc[:, 2]
         df = df.iloc[:, [0, 1]]
         df_date_hour = df[0].str.split(' ', expand=True).iloc[:,[0,1]]
         name = list(df[1].str.split('-', expand=True).iloc[:,1])
         date = list(df_date_hour[0])
         hour = list(df_date_hour[1])
+        message = list(df_msg)
         df = pd.DataFrame({
             'date': date,
             'Day_Hour': hour,
-            'name': name
+            'name': name,
+            'message': message
         })
         df = df.dropna()
-        targets = ['eliminó', 
-                    'añadió', 
-                    'admin.', 
-                    'cambió', 
-                    'Eliminaste', 
-                    'Añadiste', 
-                    'Cambiaste', 
-                    'Saliste', 
-                    'extremo', 
-                    'creó', 
-                    'salió', 
-                    'Creaste', 
-                    'videollamada', 
-                    'llamada']
         for name in df.name:
             for target in targets:                                    
                 if target in name:
                     df = df.drop(df[df.name == name].index)
         return df
+
     if (os == 'iphone'):
         df = pd.read_csv(file, sep='/n', index_col = False, encoding_errors='ignore', engine='python')
-        df.to_csv('diega_pre', index=False)
         df = df.iloc[:, 0].str.split(':', expand=True)
+        df_msg = df.iloc[:, 3]
         df_name = df.iloc[:, 2].str.split(']', expand=True).iloc[:,1]
         df_date_hour = df.iloc[:, 0]
         df_date_hour = df_date_hour.str.split(' ', expand=True).iloc[:,[0,1]]
         df_date = df_date_hour[0].str.split('[', expand=True).iloc[:,1]
         df_hour = df_date_hour[1]
+        message = list(df_msg)
         df = pd.DataFrame({
             'date': list(df_date),
             'Day_Hour': list(df_hour),
-            'name': list(df_name)
+            'name': list(df_name),
+            'message': message
         })
         df = df.dropna()
-        targets = ['eliminó', 
-                    'añadió', 
-                    'admin.', 
-                    'cambió', 
-                    'Eliminaste', 
-                    'Añadiste', 
-                    'Cambiaste', 
-                    'Saliste', 
-                    'extremo', 
-                    'creó', 
-                    'salió', 
-                    'Creaste', 
-                    'videollamada', 
-                    'llamada']
         for name in df.name:
             for target in targets:                                    
                 if target in name:
@@ -145,12 +134,32 @@ def graphs(df):
 
     return first, rank, total_msj
 
+def keygraph(df, key):
+    df['key_detector'] = df['message'].str.contains(key, regex=True)
+    df_key = df.groupby(['name', 'key_detector']).size().reset_index(name='counts')
+    df_key_true = df_key.loc[df_key['key_detector']]
+    fig = plt.figure(figsize=(8,4))
+    ax = sns.barplot(y='name', x='counts', data=df_key_true, palette="crest")
+    ax.set(title = f'Word: "{key}"', ylabel=None)
+    plt.savefig('media/graphs/key.png', transparent=True, bbox_inches='tight')
 
 def home(request):
+    global df
     if request.method=='POST':
         form = ChatForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
+            path = Chat.objects.last().file.path
+            with open(path, 'r',encoding='utf-8') as f:
+                file = f.name
+                txt = f
+                try:
+                    os_chat = checkOs(txt)
+                except:
+                    return HttpResponse('I can only read .txt files :(')
+            df = cleanTxt(file, os_chat)
+            os.remove(path)
+            Chat.objects.filter(file = Chat.objects.last().file).delete()
             return redirect('/results')
     else:
         form = ChatForm()
@@ -161,20 +170,12 @@ def home(request):
     return render(request, 'Stats/index.html', context)
 
 def results(request):
-    
-    path = Chat.objects.last().file.path
-    with open(path, 'r',encoding='utf-8') as f:
-        file = f.name
-        txt = f
-        try:
-            os_chat = checkOs(txt)
-        except:
-            return HttpResponse('I can only read .txt files :(')
+    global df
+    if request.method == 'POST':
+        key = request.POST.get('key')
+        keygraph(df, key)
+        return redirect("/results/?key")
 
-    df = cleanTxt(file, os_chat)
-    df.to_csv('diega.csv', index=False)
-    os.remove(path)
-    Chat.objects.filter(file = Chat.objects.last().file).delete()
     results = graphs(df)
     first, rank , total_msj = results[0], results[1], results[2] 
 

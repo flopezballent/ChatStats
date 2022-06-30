@@ -15,6 +15,20 @@
 </head>
 <body style="background-color: rgb(59, 102, 102);">
     <div id="ranking_block" class="block">
+        <h4 class="block-title">Search who said a word the most times</h4>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Word" name="key" id="key" class="key-input">
+            <input type="submit" value="Search" class="send-button">
+        </form>
+    </div>
+    {% if 'key' in request.GET %}
+        <div id="key_block" class="block">
+            <h4 class="block-title">Who sent a word most times</h4>
+            <img src="{{ MEDIA_URL }}graphs/key.png" alt="" class="responsive">
+        </div>
+    {% endif %}
+    <div id="ranking_block" class="block">
         <h4 class="block-title">Who sent more messages</h4>
         <div class="rank-first" id="ranking_name_first">
             <p class="rank-name">{{first.0}}</p>

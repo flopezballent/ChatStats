@@ -83,6 +83,19 @@ input[type='file']:hover {
     color: white;
 }
 
+.home {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 25px;
+    text-align: left !important;
+    padding: 10px;
+}
+
+input[type='text'] {
+    font-family: 'Oxygen', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+}
+
 .responsive {
     width: 100%;
     height: auto;
