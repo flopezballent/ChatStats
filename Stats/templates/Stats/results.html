@@ -14,7 +14,13 @@
     <link href="{% static 'Stats/style.css' %}" rel="stylesheet">
 </head>
 <body style="background-color: rgb(59, 102, 102);">
-    <div id="ranking_block" class="block">
+    <header>
+        <a href="{% url 'Home' %}">
+            <img src="{% static 'Stats/svg/wa.svg' %}" alt="" width="100" height="70">
+            CHAT STATS
+        </a>
+    </header>
+    <div id="ranking_block" class="block-search">
         <h4 class="block-title">Search who said a word the most times</h4>
         <form action="" method="POST">
             {% csrf_token %}
